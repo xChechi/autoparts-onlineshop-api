@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Makes")
 @AllArgsConstructor
@@ -24,4 +26,7 @@ public class Make {
     @NotBlank
     @Size(min = 2)
     private String name;
+
+    @OneToMany(mappedBy = "make", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Model> modelList;
 }

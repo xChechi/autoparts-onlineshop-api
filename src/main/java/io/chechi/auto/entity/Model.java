@@ -24,4 +24,8 @@ public class Model {
     @NotBlank
     @Size(min = 2)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "make_id")
+    private Make make;
 }

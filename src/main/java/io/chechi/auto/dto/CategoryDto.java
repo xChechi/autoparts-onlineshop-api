@@ -1,26 +1,23 @@
-package io.chechi.auto.entity;
+package io.chechi.auto.dto;
 
-import jakarta.persistence.*;
+import io.chechi.auto.entity.Part;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Entity
-@Table(name = "Parts_Categories")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-public class Category {
+@Getter
+@Setter
+public class CategoryDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @NotNull
     private Integer id;
 
     @NotBlank
@@ -31,6 +28,5 @@ public class Category {
     @Size(max = 255)
     private String description;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Part> parts;
 }
