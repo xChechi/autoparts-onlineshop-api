@@ -18,7 +18,6 @@ import java.util.List;
 @Builder
 public class MakeDto {
 
-    @NotNull
     private Integer id;
 
     @NotBlank

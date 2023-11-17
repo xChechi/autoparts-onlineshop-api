@@ -10,13 +10,13 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class ModelDto {
-
-    private Integer id;
+public class ModelUpdateDto {
 
     @NotBlank
     @Size(min = 2)
     private String name;
 
+    @NotBlank
+    @Size(min = 2)
     private Make make;
 }
