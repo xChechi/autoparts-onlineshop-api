@@ -1,23 +1,21 @@
 package io.chechi.auto.dto;
 
+import io.chechi.auto.entity.Category;
 import io.chechi.auto.entity.Model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class PartDto {
 
-    @NotNull
     private Integer id;
 
     @NotBlank
@@ -28,5 +26,10 @@ public class PartDto {
     @Size(max = 255)
     private String description;
 
-    private List<Model> modelList;
+    @NotNull
+    private Double price;
+
+    private Category category;
+
+    private Set<Model> compatibleModels;
 }

@@ -1,5 +1,6 @@
 package io.chechi.auto.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.chechi.auto.entity.Model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
@@ -24,5 +25,8 @@ public class MakeDto {
     @Size(min = 2)
     private String name;
 
+    @JsonIgnore
     private List<Model> modelList;
+
+    private List<String> modelNames;
 }

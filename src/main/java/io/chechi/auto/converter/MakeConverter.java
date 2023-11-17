@@ -26,11 +26,14 @@ public class MakeConverter {
     public MakeDto toResponse (Make make) {
 
         List<Model> modelList = modelRepository.findByMake(make);
+        List<String> modelNames = modelList.stream()
+                .map(Model::getName)
+                .collect(Collectors.toList());
 
         return MakeDto.builder()
                 .id(make.getId())
                 .name(make.getName())
-                .modelList(modelList)
+                .modelNames(modelNames)
                 .build();
     }
 }

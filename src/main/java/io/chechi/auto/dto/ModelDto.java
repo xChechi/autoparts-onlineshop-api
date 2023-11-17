@@ -2,9 +2,12 @@ package io.chechi.auto.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.chechi.auto.entity.Make;
+import io.chechi.auto.entity.Part;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +26,5 @@ public class ModelDto {
     private MakeDto make;
 
     private String makeName;
+
 }

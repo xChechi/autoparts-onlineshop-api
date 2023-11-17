@@ -1,10 +1,7 @@
 package io.chechi.auto.converter;
 
 import io.chechi.auto.dto.PartDto;
-import io.chechi.auto.entity.Category;
 import io.chechi.auto.entity.Part;
-import io.chechi.auto.repository.ModelRepository;
-import io.chechi.auto.repository.PartRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +9,26 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class PartConverter {
 
-    public Part addPart (Category category, PartDto dto) {
+    public Part addPart (PartDto request) {
 
         return Part.builder()
-                .name(dto.getName())
-                .description(dto.getDescription())
-                .category(category)
-                .modelList(dto.getModelList())
+                .name(request.getName())
+                .description(request.getDescription())
+                .price(request.getPrice())
+                .category(request.getCategory())
+                .compatibleModels(request.getCompatibleModels())
+                .build();
+    }
+
+    public PartDto toResponse (Part part) {
+
+        return PartDto.builder()
+                .id(part.getId())
+                .name(part.getName())
+                .description(part.getDescription())
+                .price(part.getPrice())
+                .category(part.getCategory())
+                .compatibleModels(part.getCompatibleModels())
                 .build();
     }
 }

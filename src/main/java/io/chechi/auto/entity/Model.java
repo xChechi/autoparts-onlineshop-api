@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "Models")
 @AllArgsConstructor
@@ -31,4 +34,5 @@ public class Model {
     @JoinColumn(name = "make_id")
     @JsonBackReference
     private Make make;
+
 }
