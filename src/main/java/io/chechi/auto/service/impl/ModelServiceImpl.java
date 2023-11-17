@@ -3,6 +3,7 @@ package io.chechi.auto.service.impl;
 import io.chechi.auto.converter.ModelConverter;
 import io.chechi.auto.dto.ModelDto;
 import io.chechi.auto.dto.ModelUpdateDto;
+import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
 import io.chechi.auto.exception.ModelNotFoundException;
 import io.chechi.auto.repository.ModelRepository;
@@ -21,7 +22,7 @@ public class ModelServiceImpl implements ModelService {
     private final ModelConverter modelConverter;
 
     @Override
-    public List<ModelDto> findAll(Integer id) {
+    public List<ModelDto> findAll() {
         List<Model> modelList = modelRepository.findAll();
         List<ModelDto> modelResponses = new ArrayList<>();
 
@@ -59,5 +60,30 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public void deleteById(Integer id) {
         modelRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ModelDto> findByMake(Make make) {
+        List<Model> modelList = modelRepository.findByMake(make);
+        List<ModelDto> responses = new ArrayList<>();
+
+        for (Model m : modelList) {
+            ModelDto response = modelConverter.toResponse(m);
+            responses.add(response);
+        }
+        return responses;
+    }
+
+    @Override
+    public List<ModelDto> findByMakeName(String makeName) {
+
+        List<Model> modelList = modelRepository.findByMakeName(makeName);
+        List<ModelDto> responses = new ArrayList<>();
+
+        for (Model m : modelList) {
+            ModelDto response = modelConverter.toResponse(m);
+            responses.add(response);
+        }
+        return responses;
     }
 }
