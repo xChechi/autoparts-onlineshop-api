@@ -1,27 +1,24 @@
 package io.chechi.auto.dto;
 
-import io.chechi.auto.entity.Make;
+import io.chechi.auto.entity.Model;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class ModelDto {
-
-    @NotNull
-    private Integer id;
+public class MakeUpdateDto {
 
     @NotBlank
     @Size(min = 2)
     private String name;
-
-    private Make make;
 }
