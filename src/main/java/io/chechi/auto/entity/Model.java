@@ -1,5 +1,7 @@
 package io.chechi.auto.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.chechi.auto.dto.MakeDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,5 +29,6 @@ public class Model {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "make_id")
+    @JsonBackReference
     private Make make;
 }

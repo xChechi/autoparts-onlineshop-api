@@ -18,5 +18,5 @@ public class ModelDto {
     @Size(min = 2)
     private String name;
 
-    private Make make;
+    private MakeDto make;
 }

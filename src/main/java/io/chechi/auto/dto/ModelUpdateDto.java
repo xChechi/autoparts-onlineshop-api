@@ -18,5 +18,5 @@ public class ModelUpdateDto {
 
     @NotBlank
     @Size(min = 2)
-    private Make make;
+    private MakeDto make;
 }

@@ -20,7 +20,7 @@ public class MakeController {
 
     @GetMapping
     public ResponseEntity<List<MakeDto>> findAll () {
-        return ResponseEntity.status(HttpStatus.FOUND).body(makeService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(makeService.findAll());
     }
 
     @GetMapping("/{id}")

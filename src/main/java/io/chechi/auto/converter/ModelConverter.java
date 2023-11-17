@@ -1,5 +1,6 @@
 package io.chechi.auto.converter;
 
+import io.chechi.auto.dto.MakeDto;
 import io.chechi.auto.dto.ModelDto;
 import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
@@ -12,12 +13,15 @@ import org.springframework.stereotype.Component;
 public class ModelConverter {
 
     private final MakeRepository makeRepository;
+    private final MakeConverter makeConverter;
 
     public Model addModel (ModelDto dto) {
 
+        Make make = makeRepository.findByName(dto.getMake().getName());
+
         return Model.builder()
                 .name(dto.getName())
-                .make(dto.getMake())
+                .make(make)
                 .build();
     }
 
@@ -26,7 +30,7 @@ public class ModelConverter {
         return ModelDto.builder()
                 .id(model.getId())
                 .name(model.getName())
-                .make(model.getMake())
+                .make(makeConverter.toResponse(model.getMake()))
                 .build();
     }
 }
