@@ -13,7 +13,7 @@ public interface MakeService {
 
     MakeDto addMake (MakeDto dto);
 
-    MakeDto updateMake (MakeUpdateDto dto);
+    MakeDto updateMake (Integer id, MakeUpdateDto dto);
 
     void deleteById (Integer id);
 }

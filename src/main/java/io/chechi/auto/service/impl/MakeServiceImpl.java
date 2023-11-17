@@ -4,6 +4,7 @@ import io.chechi.auto.converter.MakeConverter;
 import io.chechi.auto.dto.MakeDto;
 import io.chechi.auto.dto.MakeUpdateDto;
 import io.chechi.auto.entity.Make;
+import io.chechi.auto.exception.MakeNotFoundException;
 import io.chechi.auto.repository.MakeRepository;
 import io.chechi.auto.service.MakeService;
 import lombok.AllArgsConstructor;
@@ -40,16 +41,22 @@ public class MakeServiceImpl implements MakeService {
 
     @Override
     public MakeDto addMake(MakeDto dto) {
-        return null;
+        Make make = makeConverter.addMake(dto);
+        Make savedMake = makeRepository.save(make);
+
+        return makeConverter.toResponse(savedMake);
     }
 
     @Override
-    public MakeDto updateMake(MakeUpdateDto dto) {
-        return null;
+    public MakeDto updateMake(Integer id, MakeUpdateDto dto) {
+        Make make = makeRepository.findById(id).orElseThrow(() -> new MakeNotFoundException("Make not exist in database"));
+        make.setName(dto.getName());
+        Make savedMake = makeRepository.save(make);
+        return makeConverter.toResponse(savedMake);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        makeRepository.deleteById(id);
     }
 }
