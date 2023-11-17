@@ -1,5 +1,6 @@
 package io.chechi.auto.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.chechi.auto.entity.Make;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,5 +19,8 @@ public class ModelDto {
     @Size(min = 2)
     private String name;
 
+    @JsonIgnore
     private MakeDto make;
+
+    private String makeName;
 }

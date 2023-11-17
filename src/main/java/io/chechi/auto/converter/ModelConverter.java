@@ -30,7 +30,8 @@ public class ModelConverter {
         return ModelDto.builder()
                 .id(model.getId())
                 .name(model.getName())
-                .make(makeConverter.toResponse(model.getMake()))
+                //.make(makeConverter.toResponse(model.getMake()))
+                .makeName(model.getMake().getName())
                 .build();
     }
 }

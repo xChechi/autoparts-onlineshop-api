@@ -28,7 +28,7 @@ public class ModelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ModelDto> findById (@RequestParam Integer id) {
+    public ResponseEntity<ModelDto> findById (@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.FOUND).body(modelService.findById(id));
     }
 
@@ -38,12 +38,12 @@ public class ModelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ModelDto> updateModel (Integer id, @RequestBody @Valid ModelUpdateDto dto) {
+    public ResponseEntity<ModelDto> updateModel (@PathVariable Integer id, @RequestBody @Valid ModelUpdateDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(modelService.updateModel(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById (@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteById (@PathVariable Integer id) {
         modelService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
