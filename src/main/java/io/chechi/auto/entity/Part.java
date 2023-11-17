@@ -27,5 +27,5 @@ public class Part {
 
     @NotBlank
     @Size(max = 255)
-    private String description;
+    private String descriptions;
 }
