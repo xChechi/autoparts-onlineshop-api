@@ -16,7 +16,5 @@ public class ModelUpdateDto {
     @Size(min = 2)
     private String name;
 
-    @NotBlank
-    @Size(min = 2)
     private MakeDto make;
 }
