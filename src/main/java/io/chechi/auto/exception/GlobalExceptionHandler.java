@@ -19,4 +19,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handlerModelNotFound (ModelNotFoundException msg) {
         return new ResponseEntity<>(msg.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(PartNotFoundException.class)
+    public ResponseEntity<String> handlerPartNotFound (PartNotFoundException msg) {
+        return new ResponseEntity<>(msg.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<String> handlerCategoryNotFound (CategoryNotFoundException msg) {
+        return new ResponseEntity<>(msg.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

@@ -4,7 +4,9 @@ server:
 spring:
   logging:
     level:
-      org.springframework: DEBUG
+      root: INFO  # Set the default logging level for the entire application
+      org.springframework: DEBUG  # Set a specific logging level for Spring packages
+      io.chechi.auto: DEBUG  # Set a specific logging level for your project's packages
   config:
     import:
 

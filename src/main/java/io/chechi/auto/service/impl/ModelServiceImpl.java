@@ -4,6 +4,7 @@ import io.chechi.auto.converter.MakeConverter;
 import io.chechi.auto.converter.ModelConverter;
 import io.chechi.auto.dto.MakeDto;
 import io.chechi.auto.dto.ModelDto;
+import io.chechi.auto.dto.ModelRequest;
 import io.chechi.auto.dto.ModelUpdateDto;
 import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
@@ -24,7 +25,7 @@ public class ModelServiceImpl implements ModelService {
     private final ModelRepository modelRepository;
     private final ModelConverter modelConverter;
     private final MakeRepository makeRepository;
-    private final MakeConverter makeConverter;
+
 
     @Override
     public List<ModelDto> findAll() {
@@ -45,18 +46,15 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public ModelDto addModel(ModelDto dto) {
+    public ModelDto addModel(ModelRequest dto) {
         Model model = modelConverter.addModel(dto);
 
-        MakeDto makeDto = dto.getMake();
-
-        Make make = new Make();
-        make.setId(makeDto.getId());
-        make.setName(makeDto.getName());
-
-        if (make.getId() == null) {
-            makeRepository.save(make);
+        Make make = makeRepository.findByName(dto.getMakeName());
+        if (make == null) {
+            make = Make.builder().name(dto.getMakeName()).build();
+            make = makeRepository.save(make);
         }
+
         model.setMake(make);
 
         Model savedModel = modelRepository.save(model);

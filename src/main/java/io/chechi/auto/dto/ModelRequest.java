@@ -14,16 +14,13 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class ModelDto {
+public class ModelRequest {
 
-    private Integer id;
 
     @NotBlank
     @Size(min = 2)
     private String name;
 
-    private MakeDto make;
-
-    private Integer makeId;
+    private String makeName;
 
 }

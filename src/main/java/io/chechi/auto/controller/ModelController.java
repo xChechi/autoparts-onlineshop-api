@@ -1,6 +1,7 @@
 package io.chechi.auto.controller;
 
 import io.chechi.auto.dto.ModelDto;
+import io.chechi.auto.dto.ModelRequest;
 import io.chechi.auto.dto.ModelUpdateDto;
 import io.chechi.auto.service.ModelService;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class ModelController {
     }
 
     @PostMapping
-    public ResponseEntity<ModelDto> addModel (@RequestBody @Valid ModelDto dto) {
+    public ResponseEntity<ModelDto> addModel (@RequestBody @Valid ModelRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(modelService.addModel(dto));
     }
 

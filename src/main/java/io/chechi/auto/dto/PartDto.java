@@ -1,12 +1,12 @@
 package io.chechi.auto.dto;
 
-import io.chechi.auto.entity.Category;
 import io.chechi.auto.entity.Model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -29,7 +29,9 @@ public class PartDto {
     @NotNull
     private Double price;
 
-    private Category category;
+    private Integer categoryId;
 
-    private Set<Model> compatibleModels;
+    private CategoryDto category;
+
+    private Set<Model> compatibleModels = new HashSet<>();
 }

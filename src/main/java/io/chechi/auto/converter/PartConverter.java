@@ -1,7 +1,11 @@
 package io.chechi.auto.converter;
 
 import io.chechi.auto.dto.PartDto;
+import io.chechi.auto.dto.PartRequest;
+import io.chechi.auto.entity.Category;
 import io.chechi.auto.entity.Part;
+import io.chechi.auto.exception.CategoryNotFoundException;
+import io.chechi.auto.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,13 +13,19 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class PartConverter {
 
-    public Part addPart (PartDto request) {
+    private final CategoryRepository categoryRepository;
+    private final CategoryConverter categoryConverter;
+
+    public Part addPart (PartRequest request) {
+
+        Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException("Not Found")); // <--------------------
+        System.out.println(category);
 
         return Part.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
-                .category(request.getCategory())
+                .category(category)
                 .compatibleModels(request.getCompatibleModels())
                 .build();
     }
@@ -27,7 +37,7 @@ public class PartConverter {
                 .name(part.getName())
                 .description(part.getDescription())
                 .price(part.getPrice())
-                .category(part.getCategory())
+                .category(categoryConverter.toResponse(part.getCategory()))
                 .compatibleModels(part.getCompatibleModels())
                 .build();
     }

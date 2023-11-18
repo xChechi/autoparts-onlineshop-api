@@ -1,6 +1,7 @@
 package io.chechi.auto.service;
 
 import io.chechi.auto.dto.ModelDto;
+import io.chechi.auto.dto.ModelRequest;
 import io.chechi.auto.dto.ModelUpdateDto;
 import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
@@ -13,7 +14,7 @@ public interface ModelService {
 
     ModelDto findById (Integer id);
 
-    ModelDto addModel (ModelDto dto);
+    ModelDto addModel (ModelRequest dto);
 
     ModelDto updateModel (Integer id, ModelUpdateDto dto);
 

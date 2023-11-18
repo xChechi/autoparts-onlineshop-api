@@ -2,8 +2,10 @@ package io.chechi.auto.converter;
 
 import io.chechi.auto.dto.MakeDto;
 import io.chechi.auto.dto.ModelDto;
+import io.chechi.auto.dto.ModelRequest;
 import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
+import io.chechi.auto.exception.MakeNotFoundException;
 import io.chechi.auto.repository.MakeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,9 +17,9 @@ public class ModelConverter {
     private final MakeRepository makeRepository;
     private final MakeConverter makeConverter;
 
-    public Model addModel (ModelDto dto) {
+    public Model addModel (ModelRequest dto) {
 
-        Make make = makeRepository.findByName(dto.getMake().getName());
+        Make make = makeRepository.findByName(dto.getMakeName());
 
         return Model.builder()
                 .name(dto.getName())
@@ -30,7 +32,7 @@ public class ModelConverter {
         return ModelDto.builder()
                 .id(model.getId())
                 .name(model.getName())
-                .makeName(model.getMake().getName())
+                .make(makeConverter.toResponse(model.getMake()))
                 .build();
     }
 }
