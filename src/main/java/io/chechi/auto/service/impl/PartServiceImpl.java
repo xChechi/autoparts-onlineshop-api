@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,41 +49,41 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public PartDto addPart(PartRequest request) {
-
         Set<Model> models = request.getCompatibleModels();
+        Set<Model> savedModels = new HashSet<>();
 
         for (Model model : models) {
             Make make = model.getMake();
-            String modelName = model.getName();
-            String makeName = make.getName();
+            if (make != null) {
+                String modelName = model.getName();
+                String makeName = make.getName();
 
-            // Check if the model exists
-            Model existingModel = modelRepository.findByNameAndMakeName(modelName, makeName);
+                Model existingModel = modelRepository.findByNameAndMakeName(modelName, makeName);
 
-            if (existingModel == null) {
-                // Model doesn't exist, create a new one along with the associated make
-                Make existingMake = makeRepository.findByName(makeName);
+                if (existingModel == null) {
+                    Make existingMake = makeRepository.findByName(makeName);
 
-                if (existingMake == null) {
-                    existingMake = makeRepository.save(make);
+                    if (existingMake == null) {
+                        existingMake = makeRepository.save(make);
+                    }
+
+                    Model newModel = Model.builder()
+                            .name(modelName)
+                            .make(existingMake)
+                            .build();
+
+                    existingModel = modelRepository.save(newModel);
                 }
-
-                // Create a new model associated with the make
-                Model newModel = Model.builder()
-                        .name(modelName)
-                        .make(existingMake)
-                        .build();
-
-                // Save the new model
-                modelRepository.save(newModel);
+                savedModels.add(existingModel);
+            } else {
+                // Handle the case where make is null for a model
+                // You might want to log this occurrence or handle it according to your application logic
             }
-
-            // Further logic using existingModel if needed
-            // Add the model to the part or perform other operations as required
         }
 
-        // Proceed with saving the Part after processing the models
         Part part = partConverter.addPart(request);
+        part.setCompatibleModels(savedModels);
+
         Part savedPart = partRepository.save(part);
 
         return partConverter.toResponse(savedPart);
@@ -95,7 +96,7 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public void deleteById(Integer id) {
-
+        partRepository.deleteById(id);
     }
 
     @Override

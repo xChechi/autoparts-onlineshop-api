@@ -14,9 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class PartDto {
-
-    private Integer id;
+public class PartRequest {
 
     @NotBlank
     @Size(min = 2)
@@ -29,7 +27,7 @@ public class PartDto {
     @NotNull
     private Double price;
 
-    private CategoryDto category;
+    private Integer categoryId;
 
     private Set<Model> compatibleModels = new HashSet<>();
 }
