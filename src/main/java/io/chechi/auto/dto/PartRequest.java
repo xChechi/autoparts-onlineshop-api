@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -29,5 +31,6 @@ public class PartRequest {
 
     private Integer categoryId;
 
-    private Set<Model> compatibleModels = new HashSet<>();
+    //private List<Model> compatibleModels = new ArrayList<>();
+
 }

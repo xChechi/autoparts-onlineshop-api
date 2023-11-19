@@ -22,8 +22,8 @@ public class ModelDto {
     @Size(min = 2)
     private String name;
 
-    private MakeDto make;
+    private String make;
 
-    private Integer makeId;
+    //private Integer makeId;
 
 }

@@ -18,4 +18,6 @@ public interface ModelRepository extends JpaRepository<Model, Integer> {
 
     Model findByNameAndMakeName(String modelName, String makeName);
 
+    Model findByName(String modelName);
+
 }

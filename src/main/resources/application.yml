@@ -4,9 +4,7 @@ server:
 spring:
   logging:
     level:
-      root: INFO  # Set the default logging level for the entire application
-      org.springframework: DEBUG  # Set a specific logging level for Spring packages
-      io.chechi.auto: DEBUG  # Set a specific logging level for your project's packages
+      org.springframework: DEBUG
   config:
     import:
 
@@ -19,7 +17,7 @@ spring:
     hibernate:
       ddl-auto: update
     scan:
-      packages: io.chechi.mymovies.entity
+      packages: io.chechi.auto.entity
     show-sql: true
     properties:
       hibernate:

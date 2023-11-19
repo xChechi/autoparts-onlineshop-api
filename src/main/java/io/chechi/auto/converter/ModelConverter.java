@@ -29,10 +29,11 @@ public class ModelConverter {
 
     public ModelDto toResponse (Model model) {
 
+
         return ModelDto.builder()
                 .id(model.getId())
                 .name(model.getName())
-                .make(makeConverter.toResponse(model.getMake()))
+                .make(model.getMake().getName())
                 .build();
     }
 }

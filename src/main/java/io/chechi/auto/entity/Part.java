@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,5 +46,5 @@ public class Part {
     @JoinTable(name = "parts_list",
             joinColumns = @JoinColumn(name = "part_id"),
             inverseJoinColumns = @JoinColumn(name = "model_id"))
-    private Set<Model> compatibleModels = new HashSet<>();
+    private List<Model> compatibleModels = new ArrayList<>();
 }

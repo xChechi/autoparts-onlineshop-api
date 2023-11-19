@@ -49,43 +49,10 @@ public class PartServiceImpl implements PartService {
 
     @Override
     public PartDto addPart(PartRequest request) {
-        Set<Model> models = request.getCompatibleModels();
-        Set<Model> savedModels = new HashSet<>();
-
-        for (Model model : models) {
-            Make make = model.getMake();
-            if (make != null) {
-                String modelName = model.getName();
-                String makeName = make.getName();
-
-                Model existingModel = modelRepository.findByNameAndMakeName(modelName, makeName);
-
-                if (existingModel == null) {
-                    Make existingMake = makeRepository.findByName(makeName);
-
-                    if (existingMake == null) {
-                        existingMake = makeRepository.save(make);
-                    }
-
-                    Model newModel = Model.builder()
-                            .name(modelName)
-                            .make(existingMake)
-                            .build();
-
-                    existingModel = modelRepository.save(newModel);
-                }
-                savedModels.add(existingModel);
-            } else {
-                // Handle the case where make is null for a model
-                // You might want to log this occurrence or handle it according to your application logic
-            }
-        }
-
         Part part = partConverter.addPart(request);
-        part.setCompatibleModels(savedModels);
+
 
         Part savedPart = partRepository.save(part);
-
         return partConverter.toResponse(savedPart);
     }
 
