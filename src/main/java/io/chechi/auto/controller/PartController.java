@@ -28,6 +28,16 @@ public class PartController {
         return ResponseEntity.status(HttpStatus.FOUND).body(partService.searchByName(name));
     }
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<PartDto>> findByCategoryAndOptionalModel (@RequestParam(value = "modelName", required = false) String modelName, @PathVariable Integer categoryId) {
+
+        if (modelName != null && !modelName.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FOUND).body(partService.searchByCategoryAndModel(categoryId, modelName));
+        } else {
+            return ResponseEntity.status(HttpStatus.FOUND).body(partService.searchByCategory(categoryId));
+        }
+    }
+
     @PostMapping
     public ResponseEntity<PartDto> addPart (@RequestBody @Valid PartRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(partService.addPart(request));
@@ -37,16 +47,6 @@ public class PartController {
     public ResponseEntity<Void> deletePart (@PathVariable Integer id) {
         partService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<PartDto>> findByCategoryAndOptionalModel (@RequestParam(value = "modelName", required = false) String modelName, @PathVariable Integer categoryId) {
-
-        if (modelName != null && !modelName.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(partService.searchByCategoryAndModel(categoryId, modelName));
-        } else {
-            return ResponseEntity.status(HttpStatus.FOUND).body(partService.searchByCategory(categoryId));
-        }
     }
 
 }
