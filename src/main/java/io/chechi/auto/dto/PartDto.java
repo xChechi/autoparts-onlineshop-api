@@ -33,5 +33,5 @@ public class PartDto {
 
     private CategoryDto category;
 
-    //private List<ModelDto> compatibleModels;
+    private List<ModelDto> compatibleModels;
 }

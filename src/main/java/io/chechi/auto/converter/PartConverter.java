@@ -1,6 +1,7 @@
 package io.chechi.auto.converter;
 
 import io.chechi.auto.dto.ModelDto;
+import io.chechi.auto.dto.ModelRequest;
 import io.chechi.auto.dto.PartDto;
 import io.chechi.auto.dto.PartRequest;
 import io.chechi.auto.entity.Category;
@@ -31,55 +32,51 @@ public class PartConverter {
 
     public Part addPart (PartRequest request) {
 
+        System.out.println(request.getCompatibleModels());
+
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException("Not Found")); // <--------------------
-        /*
+
+        List<ModelRequest> modelRequests = request.getCompatibleModels();
         List<Model> models = new ArrayList<>();
-        for (int i = 0; i < request.getModelNames().size(); i++) {
-            String modelName = partDTO.getModelNames().get(i);
-            String makeName = partDTO.getMakeNames().get(i);
 
-            Model model = modelRepository.findByName(modelName)
-                    .orElseGet(() -> {
-                        Make make = makeRepository.findByName(makeName)
-                                .orElseGet(() -> {
-                                    Make newMake = new Make();
-                                    newMake.setName(makeName);
-                                    return makeRepository.save(newMake);
-                                });
+        for (ModelRequest modelRequest : modelRequests) {
+            String modelName = modelRequest.getName();
+            String makeName = modelRequest.getMakeName();
 
-                        Model newModel = new Model();
-                        newModel.setName(modelName);
-                        newModel.setMake(make);
-                        return modelRepository.save(newModel);
-                    });
+            Make make = makeRepository.findByName(makeName);
+
+            if (make == null) {
+                make = makeRepository.save(Make.builder().name(makeName).build());
+            }
+
+            Model model = Model.builder()
+                    .name(modelName)
+                    .make(make)
+                    .build();
+
+            model = modelRepository.save(model);
 
             models.add(model);
         }
-
-         */
-        //System.out.println(request.getCompatibleModels());
 
         return Part.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
                 .category(category)
-                //.compatibleModels(request.getCompatibleModels())
+                .compatibleModels(models)
                 .build();
     }
 
 
     public PartDto toResponse (Part part) {
-    /*
+
         List<ModelDto> modelDtos = new ArrayList<>();
 
-        // Convert each Model in compatibleModels to ModelDto
         for (Model model : part.getCompatibleModels()) {
             ModelDto modelDto = modelConverter.toResponse(model);
             modelDtos.add(modelDto);
         }
-
-     */
 
         return PartDto.builder()
                 .id(part.getId())
@@ -87,7 +84,7 @@ public class PartConverter {
                 .description(part.getDescription())
                 .price(part.getPrice())
                 .category(categoryConverter.toResponse(part.getCategory()))
-                //.compatibleModels(modelDtos)
+                .compatibleModels(modelDtos)
                 .build();
     }
 }

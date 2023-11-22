@@ -31,6 +31,8 @@ public class PartRequest {
 
     private Integer categoryId;
 
-    //private List<Model> compatibleModels = new ArrayList<>();
+    private List<ModelRequest> compatibleModels;
+
+
 
 }
