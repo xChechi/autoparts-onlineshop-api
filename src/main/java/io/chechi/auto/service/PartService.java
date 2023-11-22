@@ -18,7 +18,9 @@ public interface PartService {
 
     void deleteById (Integer id);
 
-    List<PartDto> searchByCategoryAndModel (Integer categoryId); // <-------------------
+    List<PartDto> searchByCategoryAndModel (Integer categoryId, String modelName); // <-------------------
 
     List<PartDto> searchByName (String name);  // <-------------------
+
+    List<PartDto> searchByCategory(Integer categoryId);
 }

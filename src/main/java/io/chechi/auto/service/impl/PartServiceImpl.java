@@ -4,10 +4,13 @@ import io.chechi.auto.converter.PartConverter;
 import io.chechi.auto.dto.PartDto;
 import io.chechi.auto.dto.PartRequest;
 import io.chechi.auto.dto.PartUpdateDto;
+import io.chechi.auto.entity.Category;
 import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
 import io.chechi.auto.entity.Part;
+import io.chechi.auto.exception.CategoryNotFoundException;
 import io.chechi.auto.exception.PartNotFoundException;
+import io.chechi.auto.repository.CategoryRepository;
 import io.chechi.auto.repository.MakeRepository;
 import io.chechi.auto.repository.ModelRepository;
 import io.chechi.auto.repository.PartRepository;
@@ -28,6 +31,7 @@ public class PartServiceImpl implements PartService {
     private final PartConverter partConverter;
     private final ModelRepository modelRepository;
     private final MakeRepository makeRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<PartDto> findAll() {
@@ -67,12 +71,34 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    public List<PartDto> searchByCategoryAndModel(Integer categoryId) {
-        return null;
+    public List<PartDto> searchByCategoryAndModel(Integer categoryId, String modelName) {
+
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not exist"));
+        List<Part> partList = partRepository.findByCategoryAndModelName(category, modelName);
+
+        return partList.stream()
+                .map(partConverter::toResponse)
+                .toList();
     }
 
     @Override
     public List<PartDto> searchByName(String name) {
-        return null;
+        String lowerName = name.toLowerCase();
+        return partRepository.findAll()
+                .stream()
+                .filter(f -> f.getName().toLowerCase().contains(lowerName))
+                .map(partConverter::toResponse)
+                .toList();
+    }
+
+    @Override
+    public List<PartDto> searchByCategory(Integer categoryId) {
+
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not exist"));
+        List<Part> partList = partRepository.findByCategory(category);
+
+        return partList.stream()
+                .map(partConverter::toResponse)
+                .toList();
     }
 }
