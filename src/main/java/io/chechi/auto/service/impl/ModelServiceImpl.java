@@ -8,6 +8,7 @@ import io.chechi.auto.dto.ModelRequest;
 import io.chechi.auto.dto.ModelUpdateDto;
 import io.chechi.auto.entity.Make;
 import io.chechi.auto.entity.Model;
+import io.chechi.auto.exception.MakeNotFoundException;
 import io.chechi.auto.exception.ModelNotFoundException;
 import io.chechi.auto.repository.MakeRepository;
 import io.chechi.auto.repository.ModelRepository;

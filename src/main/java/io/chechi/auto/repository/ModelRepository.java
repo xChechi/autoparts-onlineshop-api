@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Integer> {
@@ -18,6 +19,6 @@ public interface ModelRepository extends JpaRepository<Model, Integer> {
 
     Model findByNameAndMakeName(String modelName, String makeName);
 
-    Model findByName(String modelName);
+    Optional<Model> findByName(String modelName);
 
 }

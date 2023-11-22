@@ -32,7 +32,31 @@ public class PartConverter {
     public Part addPart (PartRequest request) {
 
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException("Not Found")); // <--------------------
+        /*
+        List<Model> models = new ArrayList<>();
+        for (int i = 0; i < request.getModelNames().size(); i++) {
+            String modelName = partDTO.getModelNames().get(i);
+            String makeName = partDTO.getMakeNames().get(i);
 
+            Model model = modelRepository.findByName(modelName)
+                    .orElseGet(() -> {
+                        Make make = makeRepository.findByName(makeName)
+                                .orElseGet(() -> {
+                                    Make newMake = new Make();
+                                    newMake.setName(makeName);
+                                    return makeRepository.save(newMake);
+                                });
+
+                        Model newModel = new Model();
+                        newModel.setName(modelName);
+                        newModel.setMake(make);
+                        return modelRepository.save(newModel);
+                    });
+
+            models.add(model);
+        }
+
+         */
         //System.out.println(request.getCompatibleModels());
 
         return Part.builder()
